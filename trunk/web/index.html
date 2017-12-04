@@ -1,0 +1,821 @@
+<!DOCTYPE html>   
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style/css.css"> 
+  <title>兆原数通</title> 
+</head> 
+<body ondragstart="return false">   
+<div class='main'>
+<div class="header">
+<div class="head">
+<span>天津日志可视化</span>
+  <img id='navs' src="images/nav.png" />
+  <div class="nav_list" id='nav_list'>
+    <ul>
+      <li><a href="index.html">数据报表</a></li>
+      <li><a href="label.html">数据标签</a></li>
+      <li><a href="query.html">数据查询</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+<div class='center'>
+<div class='left'>
+  <div id="gathers" style="width: 600px;height:290px;"></div>
+  <div id="Internets" style="width: 600px;height:290px;"></div>
+  <div id="numbers" style="width: 600px;height:290px;"></div>
+</div>  
+<div class="right">
+<h4 style='margin-top: 13px' ondragstart="return false">Top10APP</h4>
+  <div class="top_box" id='top_box'>
+  <div class="top_n">
+    <div id="Top_1" style="width: 160px;height:160px;"></div>
+    <p>GoogleMaps</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_2" style="width: 160px;height:160px;"></div>
+    <p>微信</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_3" style="width: 160px;height:160px;"></div>
+    <p>QQ</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_4" style="width: 160px;height:160px;"></div>
+    <p>淘宝</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_5" style="width: 160px;height:160px;"></div>
+    <p>京东</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_6" style="width: 160px;height:160px;"></div>
+    <p>京东</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_7" style="width: 160px;height:160px;"></div>
+    <p>京东</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_8" style="width: 160px;height:160px;"></div>
+    <p>京东</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_9" style="width: 160px;height:160px;"></div>
+    <p>京东</p>
+  </div>
+  <div class="top_n">
+    <div id="Top_10" style="width: 160px;height:160px;"></div>
+    <p>京东</p>
+  </div>
+  </div>
+  <div class="browser" id='browser'>
+    
+  </div>
+</div>
+<div class="clear"></div>
+</div>
+<div class='lists' onselectstart="return false;">
+<p id='nextbtn'><image src='images/leftbtn.png'/></p>
+  <div id='lists'></div>
+  <p id='putbtn'><image src='images/rightbtn.png'/></p>
+  <div class="clear"></div>
+</div>
+</div> 
+<script type="text/javascript" src='js/jquery-3.1.1.min.js'></script>
+<script type="text/javascript" src='js/echarts.min.js'></script>
+<script type="text/javascript" src='js/index.js'></script>
+<script type="text/javascript">
+document.ondragstart = function(event) {
+return false;
+};
+var nav_list=document.getElementById('nav_list')
+var nav_li=nav_list.getElementsByTagName('li')
+nav_li[0].style.background='#3adbf3'
+//数据采集
+
+function setdateUp(date,value){
+  var gathers = echarts.init(document.getElementById('gathers'));
+  var gather=value;
+  var data=date
+  option = {
+    title : {
+        text: '数据采集',
+        x:'left',
+        y:10
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : data,
+            axisLine:{
+              lineStyle:{
+                color:'#898a8a'
+              }
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLine:{
+              lineStyle:{
+                color:'#898a8a'
+              }
+            }
+        }
+    ],
+    series : [
+        {
+            name:'实时数据',
+            type:'line',
+            data:gather,
+            smooth:true,
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+gathers.setOption(option);
+}
+    
+   var gather=[123,222,120,233,111,333,222,111,222,120,130,132,122,139,122,333,112,453,231,241,172,216,193,239]
+  var data=[]
+for(var i=1;i<25;i++){
+  data.push(i)
+}
+
+
+//校内上网数据
+
+var Internets = echarts.init(document.getElementById('Internets'));
+//var date=[]
+var Internet=[123,156,120,198,234,465,398,342,352,243,231,220,122,139,122,333,112,218,256,274,284,328,329,340]
+// for(var i=1;i<25;i++){
+//   date.push(i)
+// }
+option = {
+    title : {
+        text: '校内上网数据',
+        x:'left',
+        y:10
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : data,
+            axisLine:{
+              lineStyle:{
+                color:'#898a8a'
+              }
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLine:{
+              lineStyle:{
+                color:'#898a8a'
+              }
+            }
+        }
+    ],
+    series : [
+        {
+            name:'校内上网数据',
+            type:'line',
+            data:Internet,
+            smooth:true,
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+
+Internets.setOption(option);
+
+//校内上网人数
+
+
+var numbers = echarts.init(document.getElementById('numbers'));
+var date=[]
+var number=[123,156,120,198,234,465,398,342,352,243,231,220,122,139,122,333,112,218,256,274,284,328,329,340]
+for(var i=1;i<25;i++){
+  date.push(i)
+}
+option = {
+    title : {
+        text: '校内上网人数',
+        x:'left',
+        y:'10'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : data,
+            axisLine:{
+              lineStyle:{
+                color:'#898a8a'
+              }
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLine:{
+              lineStyle:{
+                color:'#898a8a'
+              }
+            }
+        }
+    ],
+    series : [
+        {
+            name:'校内上网人数',
+            type:'line',
+            data:number,
+            smooth:true,
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+
+numbers.setOption(option);
+//Top10APP
+// var Top_facebook = echarts.init(document.getElementById('Top_facebook'));
+// var Top_weixin = echarts.init(document.getElementById('Top_weixin'));
+// var Top_qq = echarts.init(document.getElementById('Top_qq'));
+// var Top_tao = echarts.init(document.getElementById('Top_tao'));
+// var Top_jd = echarts.init(document.getElementById('Top_jd'));
+// top_fn(Top_facebook,12030,1300)
+// top_fn(Top_weixin,12030,9300)
+// top_fn(Top_qq,12030,10300)
+// top_fn(Top_tao,12030,8300)
+// top_fn(Top_jd,12030,11300)
+function top_fn(obj,datas,data){
+option = {
+    tooltip: {
+        trigger: 'none'
+    },
+    series: [
+        {
+            name:'Facebook',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            itemStyle:{
+              normal:{borderColor:'#807f7f'}
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'center',
+                    fontSize:'18'
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            data:[
+                {value:data, name:data},
+                {value:datas-data}
+            ],
+            color:['#c23531','#fff']
+        }
+    ]
+};
+
+obj.setOption(option);
+
+}
+
+
+
+
+
+var labelTop = {
+    normal : {
+        label : {
+            show : false,
+            position : 'center',
+            formatter : '{b}',
+            textStyle: {
+                baseline : 'bottom'
+            }
+        },
+        labelLine : {
+            show : false
+        }
+    }
+};
+var labelFromatter = {
+    normal : {
+        label : {
+            formatter : function (params){
+                return params.value 
+            },
+            textStyle: {
+                baseline : 'middle'
+            }
+        }
+    },
+}
+var labelBottom = {
+    normal : {
+        color: '#ccc',
+        label : {
+            show : true,
+            position : 'center',
+            fontSize:'18',
+            color:'#333333'
+        },
+        labelLine : {
+            show : false
+        }
+    },
+    emphasis: {
+        color: 'rgba(0,0,0,0)'
+    }
+};
+var radius = [40, 55];
+var Top_1 = echarts.init(document.getElementById('Top_1'));
+var Top_2 = echarts.init(document.getElementById('Top_2'));
+var Top_3 = echarts.init(document.getElementById('Top_3'));
+var Top_4 = echarts.init(document.getElementById('Top_4'));
+var Top_5 = echarts.init(document.getElementById('Top_5'));
+var Top_6 = echarts.init(document.getElementById('Top_6'));
+var Top_7 = echarts.init(document.getElementById('Top_7'));
+var Top_8 = echarts.init(document.getElementById('Top_8'));
+var Top_9 = echarts.init(document.getElementById('Top_9'));
+var Top_10 = echarts.init(document.getElementById('Top_10'));
+top_fns(Top_1,'Top_facebook',42,20)
+top_fns(Top_2,'Top_facebook',48,30)
+top_fns(Top_3,'Top_facebook',72,63)
+top_fns(Top_4,'Top_facebook',82,23)
+top_fns(Top_5,'Top_facebook',34,34)
+top_fns(Top_6,'Top_facebook',98,46)
+top_fns(Top_7,'Top_facebook',53,24)
+top_fns(Top_8,'Top_facebook',48,35)
+top_fns(Top_9,'Top_facebook',26,67)
+top_fns(Top_10,'Top_facebook',56,24)
+function top_fns(obj,name,other,main){
+  option = {
+    series : [
+        {
+            type : 'pie',
+            center : ['50%', '50%'],
+            radius : radius,
+            x: '0%', // for funnel
+            itemStyle : labelFromatter,
+            data : [
+                {name:'other', value:other, itemStyle : labelBottom},
+                {name:name, value:main,itemStyle : labelTop}
+            ]
+        }
+    ]
+};
+obj.setOption(option);
+}
+
+
+//浏览器
+var browser = echarts.init(document.getElementById('browser'));
+option = {
+    title : {
+        text: '浏览器占比',
+        x:'left',
+        y:'10'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        x : 'center',
+        y : 'bottom',
+        data:['Chrome','Firefox','Safari','IE9+','IE8-']
+    },
+    calculable : true,
+    series : [
+        
+        {
+            name:'浏览器占比',
+            type:'pie',
+            radius : [30, 110],
+            center : ['50%', 200],
+            roseType : 'area',
+            x: '50%',               // for funnel
+            max: 40,                // for funnel
+            sort : 'ascending',     // for funnel
+            data:[
+                {value:10, name:'Chrome'},
+                {value:5, name:'Firefox'},
+                {value:15, name:'Safari'},
+                {value:25, name:'IE9+'},
+                {value:20, name:'IE8-'}
+            ]
+        }
+    ]
+};
+
+browser.setOption(option);
+
+
+
+
+
+var lists=document.getElementById('lists')
+var myDate = new Date();
+var date=myDate.toLocaleDateString();       //获取当前日(1-31)
+function mGetDate(year, month){
+    var d = new Date(year, month, 0);
+    return d.getDate();
+}
+
+var dat=date.split('/')[date.split('/').length-1]
+var more=date.split('/')[1]
+var year=date.split('/')[0]
+var newdat=dat
+var newmore=more
+for(var j=0;j<8;j++){
+  var aa=mGetDate(year,more)
+  if(dat<aa){
+    dat++
+  }else{
+    if(more<11){
+      more++
+      dat=1
+    }else{
+      year++
+      more=11
+      dat=1
+    }
+    
+
+  }
+}
+console.log(year,more,dat)
+var arr=[]
+for(var i=0;i<76;i++){
+  var aa=more<10?'0'+more:more
+  var bb=dat<10?'0'+dat:dat
+  var obj={date:more+'.'+dat,value:year+'-'+aa+'-'+bb}
+  arr.push(obj)
+dat--
+if(dat==0){
+  if(more==0){
+    year=year-1
+    more=12
+    dat=mGetDate(year,more)
+  }else{
+  more=more-1
+  dat=mGetDate(year,more)
+  }
+}
+}
+
+var dates1=newdat<10?'0'+newdat:newdat
+var mores1=newmore<0?'0'+newmore:newmore
+dateSetup(year+'-'+mores1+'-'+dates1)
+//点击时间轴获取数据
+function dateSetup(value){
+
+// $.ajax({
+//    type: 'get',
+//    url: ajaxUrl+'/'+value ,
+//   success: function(date){
+//     console.log(date)
+//   } 
+// });
+
+   ajax({
+        url: ajaxUrl+'/'+value,              //请求地址
+        type: "GET",                       //请求方式
+        dataType: "json",
+        success: function (response, xml) {
+            // 此处放成功后执行的代码
+            console.log(response,xml)
+        },
+        fail: function (status) {
+          console.log(status)
+            // 此处放失败后执行的代码
+        }
+    });
+
+
+
+
+  // myajax.get({
+  //   //data: {'date':value}, //参数
+  //   url: ajaxUrl+'/'+value, //请求地址
+  //   //发生错误是调用
+  //   error: function(data) {
+  //     console.log(data)
+  //   },
+  //   //请求成功调用
+  //   success: function(data){        
+  //   eval(data); //将字符串转换成json
+  //   if(data.code==0){
+  //     //setdateUp()
+  //     var value=[]
+  //     var sesult=data.sesult
+  //     for(var i=0;i<24;i++){
+  //       var aa=i<10?'0'+i:i
+  //       for(var j=0;j<sesult.length;j++){
+  //         if(aa==sesult[j].hour){
+  //           value.push(sesult[j].value)
+  //         }else{
+  //           value.push(0)
+  //         }
+  //       }
+  //     }
+  //     console.log(value)
+  //   }
+  //   }
+  //   });
+}
+
+//生成时间轴
+var TimeBar = {
+    config:{
+      domId:'lists',
+      index:8,
+      differ:8,
+      max:17,
+
+      itemClick:function(value){
+    dateSetup(value)
+      },
+      preOneCallBck:function(c,n){
+    dateSetup(n)
+      },
+      nextOneCallBck:function(c,n){
+    dateSetup(n)
+      }
+      
+    },
+      itemClick:function(event){
+
+        var t = event.target ;
+        var num = Number(t.getAttribute('name'));
+        if(num>7&&num<60){
+          this.config.index=num
+        // 找当前坐标
+        
+        var val = t.getAttribute('value');
+        //alert(val)
+        this.config.itemClick(val);
+        this.render();
+        }
+    },
+    preOne:function(){
+        var t = this.data[this.config.index].value;
+        this.config.index-- ;
+        if(this.config.index<8){
+          this.config.index=8
+        } 
+        var n = this.data[this.config.index].value;
+        this.config.preOneCallBck(t,n);
+        this.render();
+      },
+      nextOne:function(){
+        var t = this.data[this.config.index].value;
+        this.config.index++ ;
+        if(this.config.index>59){
+          this.config.index=59
+        } 
+        var n = this.data[this.config.index].value;
+        this.config.nextOneCallBck(t,n);
+        this.render();
+      },
+    data:arr,
+    render:function(){
+      var waper = document.getElementById(this.config.domId);
+      var ul = document.createElement('ul');
+      //console.log(this.config.index,this.data.length-17)
+      if(this.config.index>this.data.length-17){
+        for(var i= this.data.length-17;i<this.data.length;i++){
+        var temp = null ;
+        var num=null
+        if(this.data.length > i){
+          temp = this.data[i].date
+          num=i
+        }else{
+          break ;
+        }
+
+        
+        var li = document.createElement('li');
+        li.className='lis_n'
+        li.setAttribute('value',this.data[i].value)
+        li.setAttribute('name',num)
+        li.innerHTML=temp;
+        if(i==this.config.index){
+          li.style.backgroundImage='url(images/date_curent.png)'
+          li.style.transform='scale(1.05)'
+        }
+        if(i<8||i>59){
+          li.style.backgroundImage='url(images/date_unselect.png)'
+          li.style.transform='scale(0.9)'
+        }
+
+        li.addEventListener('click',function(event){
+          this.itemClick(event);
+        }.bind(this))
+        ul.prepend(li);
+      }
+      }else{
+
+      for(var i= Number(this.config.index)-this.config.differ;i<Number(this.config.index)+this.config.max-this.config.differ;i++){
+        var temp = null ;
+        var num=null
+        if(this.data.length > i){
+          temp = this.data[i].date
+          num=i
+        }else{
+          break ;
+        }
+
+        //console.log(data[i])
+        var li = document.createElement('li');
+        li.className='lis_n'
+        li.setAttribute('value',this.data[i].value)
+        li.setAttribute('name',num)
+        li.innerHTML=temp;
+        if(i==this.config.index){
+          li.style.backgroundImage='url(images/date_curent.png)'
+          li.style.transform='scale(1.05)'
+        }
+        if(i<8||i>59){
+          li.style.backgroundImage='url(images/date_unselect.png)'
+          li.style.transform='scale(0.9)'
+        }
+
+        li.addEventListener('click',function(event){
+          this.itemClick(event);
+        }.bind(this))
+        ul.prepend(li);
+      }
+      }
+      waper.innerHTML='';
+      waper.prepend(ul);
+    },
+    init:function(config){
+      this.config = Object.assign(this.config,config);
+      this.render();
+    }
+
+  }
+
+  TimeBar.init();
+var putbtn=document.getElementById('putbtn')
+var nextbtn=document.getElementById('nextbtn')
+
+  putbtn.addEventListener('click',function(){
+    TimeBar.preOne()
+  })
+
+  nextbtn.addEventListener('click',function(){
+    TimeBar.nextOne()
+  })
+
+//1
+/*
+//生成时间轴
+var lists=document.getElementById('lists')
+var myDate = new Date();
+var date=myDate.toLocaleDateString();       //获取当前日(1-31)
+function mGetDate(year, month){
+    var d = new Date(year, month, 0);
+    return d.getDate();
+}
+console.log(date)
+var dat=date.split('/')[date.split('/').length-1]
+var more=date.split('/')[1]
+var year=date.split('/')[0]
+setliset(dat,more,year)
+function setliset(num,mores,years){
+  for(var i=0;i<30;i++){
+var lis=document.createElement('li')
+
+lis.innerHTML=mores+'.'+num
+
+num--
+if(num==0){
+  if(mores==0){
+    years=years-1
+    mores=12
+    num=mGetDate(years,mores)
+  }else{
+  mores=mores-1
+  num=mGetDate(years,mores)
+  }
+}
+lists.prepend(lis)
+}
+
+}
+//点击切换时间轴   >
+var number=0
+var nextbtn=document.getElementById('nextbtn')
+nextbtn.onclick=function(){
+  if(number<31){
+    number++
+    lists.innerHTML=''
+dat--
+if(dat==0){
+  if(more==0){
+    year=year-1
+    more=12
+    dat=mGetDate(year,more)
+  }else{
+  more=more-1
+  dat=mGetDate(year,more)
+  }
+}
+setliset(dat,more,year)
+  }
+  
+}
+
+//点击切换时间轴   <
+var putbtn=document.getElementById('putbtn')
+putbtn.onclick=function(){
+  if(number>0){
+number--
+    lists.innerHTML=''
+dat++
+if(dat==mGetDate(date.split('/')[0],date.split('/')[1])+1){
+  if(date.split('/')[1]==12){
+    year++
+    more=1
+    dat=1
+  }else{
+   more++ 
+   dat=1
+  }
+  
+}
+// if(dat==0){
+//   if(more==0){
+//     year=year-1
+//     more=12
+//     dat=mGetDate(year,more)
+//   }else{
+//   more=more-1
+//   dat=mGetDate(year,more)
+//   }
+// }
+setliset(dat,more,year)
+  }
+  
+}
+*/
+</script>  
+</body>   
+</html>  

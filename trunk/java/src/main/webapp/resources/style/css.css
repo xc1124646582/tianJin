@@ -1,0 +1,313 @@
+*{margin: 0;padding: 0}
+.clear{clear: both;}
+html, body{ margin:0; height:100%; }
+a{display: block;}
+a:link{color: #e8f1f2;text-decoration: none}
+a:visited{color: #e8f1f2;text-decoration: none}
+a:hover{color: #e8f1f2;text-decoration: none}
+a:active{color: #e8f1f2;text-decoration: none}
+textarea{ resize:none;}
+select{border: none}
+.main{
+	min-width: 1440px;
+	width: 100%;
+	min-height:100%;
+	position: absolute;
+	color:rgb(51,51,51);
+	background-color: #e9e9e9;
+box-sizing: border-box;}
+.min_width{
+	width: 1440px;
+	margin:0 auto;
+}
+.header{
+	width: 100%;
+	background-color: #48525e;
+}
+.head{height: 52px;
+text-align: center;
+line-height: 52px;
+position: relative;
+color: white;
+width: 1440px;
+margin:0 auto;}
+.head span{font-size: 23px}
+#navs{
+	cursor: pointer;
+	position: absolute;
+	right: 13px;
+	top:5px;
+	transition: 0.5s;}
+.nav_list{ width: 180px;
+	position: absolute;
+	right: 13px;
+	top: 52px;
+	overflow: hidden;
+	opacity: 0.9;
+	transition: 0.5s;
+	box-shadow: 1px 1px #868585;
+	height: 0;
+	z-index: 99;
+background-color: #48525e;}
+.nav_list li:nth-child(1){border:none;}
+.nav_list li{list-style: none;
+width: 100%;
+line-height: 40px;
+box-sizing: border-box;
+border-top: 1px solid white;
+height: 40px;
+text-align: center;}
+.nav_list li:hover{background-color: #3adbf3}
+.center{ width: 1440px;
+	background-color: white;
+	box-sizing: border-box;
+	padding: 0 9px;
+	min-height:calc(100% - (102px));
+ margin: 0 auto}
+.left{float: left ;}
+.right{float: left;
+width: 800px}
+.top_box{
+	padding-bottom: 16px;
+	height: 300px;}
+.browser{height: 400px}
+.top_n{float: left;}
+.top_n p{text-align: center;}
+.lists{height: 37px;
+width: 1440px;
+background-color: white;
+margin:0 auto;
+padding-bottom: 13px;}
+.lists ul{float: left;
+margin-left: 36px}
+.lists p{ width: 48px;
+height: 38px;
+float: left;
+margin: 0 5px;
+text-align: center;
+cursor: pointer;
+line-height: 35px }
+.lists p:hover{transform: scale(1.1);
+transition: 1s}
+.lis_n{width: 48px;
+height: 35px;
+float: left;
+list-style: none;
+margin: 0 13px;
+box-sizing: border-box;
+cursor: pointer;
+font-size: 14px;
+padding-top: 4px;
+background-image: url(../images/date_select.png);
+background-size: 100% 100%;
+transform: scale(0.9);
+text-align: center;
+transition: 1s;
+text-shadow: 1px 1px 1px red,
+box-shadow: 1px 1px #ccc;
+line-height: 40px} 
+.lists p img{width: 100%;
+	height: 100%;
+	}
+#nextbtn{float: left}
+#putbtn{float: right;}
+
+
+/*query*/
+.query_center{
+	width: 1100px;
+	padding-top: 28px;
+	margin: 0 auto;
+}
+.query_center_n{padding-bottom: 48px}
+.query_center_n>p{float: left;
+	text-align: center;
+	font-size: 18px;
+	width: 270px;
+font-size: 18px}
+.query_n1_box{
+	width: 730px;
+	height: 160px;
+	border: 1px solid #a4a7a7;
+	box-sizing: border-box;
+	padding: 0 13px;
+	float: left;
+}
+.query_n1_box div{
+	padding-left: 48px;
+	padding-right: 48px;
+	margin-top: 9px;
+height: 26px;
+position: relative;
+background-color: #f5f5f5;
+margin-right: 9px;
+cursor: default;
+float: left;
+text-align: center;
+line-height: 26px;
+}
+.query_n1_box div span{
+	color: red;
+cursor: pointer;
+width: 8px;
+height: 8px;
+line-height: 8px;
+font-size: 13px;
+display: none;
+position: absolute;
+top: -3px;right: 0;
+}
+.query_n1_box div:hover>span{
+	display: block;
+}
+#query_addbox{ width: 400px ;
+float: left;}
+.query_center_input input{
+	display: block;
+width: 385px;
+height: 28px;
+border: 1px solid #b4b6b6;
+margin-bottom: 9px;
+}
+.query_center_input button{ width: 55px;
+height: 28px;
+float: left; }
+.query_n4{float: left;
+width: 730px;}
+.query_n4 input{height: 28px;
+border: 1px solid #b4b6b6;}
+.query_n5{
+	border:1px solid #ccc;width:730px;height:230px;float: left;
+	padding: 3px;
+	box-sizing: border-box;
+}
+#query_cha{
+width: 70px;
+height: 32px;
+}
+
+
+
+/*label*/
+.label_button{width: 60px;
+height: 30px}
+.label_con{width: 1100px;
+margin: 0 auto}
+.label_n1{ width: 100% ;
+	padding-bottom: 65px;
+padding-top: 10px}
+.label_n1>p:nth-child(1){
+	box-sizing: border-box;
+	padding-left: 270px;
+	margin-bottom: 12px;
+}
+.label_n1_tit{float: left;
+	text-align: left;
+	font-size: 19px;
+	text-align: center;
+width: 270px}
+.label_n1_box{ width: 730px;
+float: left;
+min-height: 120px;
+box-sizing: border-box;
+padding: 0 12px;
+border: 1px solid rgba(51,51,51,0.6) }
+.label_n1_box div{
+	padding-left: 48px;
+	padding-right: 48px;
+	margin-top: 9px;
+height: 26px;
+background-color: #f5f5f5;
+position: relative;
+margin-right: 9px;
+cursor: default;
+float: left;
+text-align: center;
+line-height: 26px;
+}
+.label_n1_box div span{color: red;
+cursor: pointer;
+width: 8px;
+height: 8px;
+line-height: 8px;
+font-size: 13px;
+display: none;
+position: absolute;
+top: -3px;right: 0}
+.label_n1_box div:hover>span{
+	display: block;
+}
+.label_n2_top{width: 100%;
+border-top: 1px solid #cbc6c6;
+padding-top: 32px;}
+.label_n2{
+padding-bottom: 65px;}
+.label_n2_box{
+float: left}
+.label_n2_box>p:nth-child(1){
+	box-sizing: border-box;
+	margin-bottom: 12px;
+}
+table{border: none;
+outline: none;}
+.label_n2_box table{max-width: 730px;width: 730px;border-right:1px solid rgba(51,51,51,0.6) ;border-bottom:1px solid rgba(51,51,51,0.6) } 
+.label_n2_box table td{border-left:1px solid rgba(51,51,51,0.6);border-top:1px solid rgba(51,51,51,0.6) ;
+box-sizing: border-box;
+padding-left: 11px;
+word-wrap:break-word;
+word-break:break-all;
+height: 36px;
+}
+.label_n2_box table td button{ width: 46px;
+height: 26px;
+margin-right:8px }
+.label_n2_box table tr>td:nth-child(1){padding: 0}
+.label_n2_box table td select{ width: 100%;
+	box-sizing: border-box;
+	padding-left: 11px;
+height: 100% }
+
+#label_n3_table tr>td:nth-child(1){padding: 0}
+#label_n3_table tr>td:nth-child(3){padding: 0}
+#lavel_addspan2{color: red;
+display:none;
+font-size: 13px}
+.upd_btn{
+	text-align: right;
+	padding-top: 18px;
+}
+.upd_btn button{width: 48px;
+height: 25px  }
+.label_n1_return{ width: 100%;
+height: 100%;
+display: none;
+position: absolute;
+top: 0;
+left: 0;
+background-color: rgba(0,0,0,0.5); }
+.label_n1_rans{width: 500px;
+height: 180px;
+background-color: white;
+padding: 18px;
+box-sizing: border-box;
+border-radius: 5px;
+box-shadow: 1px 1px 1px black;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+margin: auto}
+.label_n1_rans p{text-align: center;
+margin-bottom: 12px}
+.label_n1_rans input{
+	width: 230px;
+	height: 26px
+}
+.label_n1_rans button{
+	width: 55px;
+	height: 32px;
+	margin: 0 24px
+}
+/*.label_n2_box table td{border: 1px solid black}
+.label_n2_box table th{border: 1px solid black}*/

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joyadata.tjlog.dao.ITagDao">
+	<insert id="addTag" parameterType="com.joyadata.tjlog.model.Tag">
+		INSERT INTO `tjlog`.`tag`
+			(`id`,`name`)
+		VALUES
+			(#{id},#{name});
+	</insert>
+	<select id="getTagReg" resultType="com.joyadata.tjlog.model.TagReg">
+		SELECT
+			`id`,
+		    `tagId`,
+		    `field`,
+		    `group`,
+		    `regStr`
+		FROM 
+			`tagreg`
+		WHERE
+			tagId = #{tagId}
+	</select>
+	<insert id="addTagReg" parameterType="com.joyadata.tjlog.model.TagReg">
+		INSERT INTO `tagreg`
+			(`id`,`tagId`,`field`,`group`,`regStr`)
+		VALUES
+			(#{id},#{tagId},#{field},#{group},#{regStr});	
+	</insert>
+	<update id="updateTagReg" parameterType="com.joyadata.tjlog.model.TagReg">
+		UPDATE 
+			`tagreg`
+		SET
+			`field` = #{field},
+			`group` = #{group},
+			`regStr` = #{regStr}
+		WHERE `id` = #{id};
+	</update>
+	<select id="getAllTags" resultType="com.joyadata.tjlog.model.Tag">
+		SELECT 
+			`id`,
+		    `name`
+		FROM 
+			`tag`;
+	</select>
+	<delete id="deleteTagRegByTagId">
+		DELETE FROM tagreg WHERE tagId = #{tagId}
+	</delete>
+	<delete id="deleteTagReg">
+		DELETE FROM tagreg WHERE id = #{tagRegId}
+	</delete>
+	<delete id="deleteTag">
+		DELETE FROM tag WHERE id = #{tagId}
+	</delete>
+	<insert id="addDataTagReg" parameterType="com.joyadata.tjlog.model.DataTagReg">
+		INSERT INTO `dataragreg`
+			(`id`,`tagId`,`regStr`,`status`)
+		VALUES
+			(#{id},#{tagId},#{regStr},#{status});
+	</insert>
+	<select id="getAllDataTagReg" resultType="com.joyadata.tjlog.model.DataTagReg">
+		SELECT `dataragreg`.`id`,
+		    `dataragreg`.`tagId`,
+		    `dataragreg`.`regStr`,
+		    `dataragreg`.`status`,
+		    tag.name AS tagName
+		FROM 
+			`dataragreg`
+		LEFT JOIN 
+			tag ON tag.id = dataragreg.tagId
+	</select>
+	<update id="updateDataTagReg" parameterType="com.joyadata.tjlog.model.DataTagReg" >
+		UPDATE 
+			`dataragreg`
+		SET
+			`tagId` = #{tagId},
+			`regStr` = #{regStr},
+			`status` = #{status}
+		WHERE `id` = #{id};
+	</update>
+	<delete id="delDataTagReg">
+		DELETE FROM `dataragreg`  WHERE id=#{id}
+	</delete>
+</mapper>

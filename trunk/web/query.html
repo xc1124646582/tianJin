@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style/css.css">   
+    <style type="text/css">
+        body {
+            background-color: #f4f4f4;
+            color:rgb(51,51,51);
+        }
+        .main{
+            background-color: #fff;
+        }
+        .head{
+            height:45px;
+           background-color:rgb(255, 255, 255)
+
+        }
+    </style>
+</head>
+<body ondragstart="return false">
+<div class="head">
+<div class='main'>
+<div class="header">
+<div class="head">
+<span>天津日志可视化</span>
+  <img id='navs' src="images/nav.png" />
+  <div class="nav_list" id='nav_list'>
+    <ul>
+      <li><a href="index.html">数据报表</a></li>
+      <li><a href="label.html">数据标签</a></li>
+      <li><a href="query.html">数据查询</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+<div class="center">
+	<div class='query_center'>
+	<div class='query_center_n'><p>标签：</p>
+	<div class="query_n1_box" id='query_n1_box'>
+		
+	</div>
+	<div class="clear"></div>
+	</div>
+	<div class='query_center_n'><p>时段：</p><div style='width:780px;float: left'>
+	<span>&nbsp;开始&nbsp;&nbsp;&nbsp;<input type="text" style='border:1px solid #b4b6b6;box-sizing: border-box;height: 28px;width: 80px;border-right: none' id='query_statedate'/><input style="box-sizing: border-box;height: 28px;padding-left: 13px" type='time' value='00:00'/></span>
+	<span style='margin-left: 15px'>&nbsp;结束&nbsp;&nbsp;&nbsp;<input type="text" style='box-sizing: border-box;height: 28px;width: 80px;border:1px solid #b4b6b6;border-right: none' id='query_enddate'/><input style="box-sizing: border-box;height: 28px;padding-left: 13px" type='time' value='00:00'/></span>
+	</div>
+	<div class="clear"></div>
+	</div>
+	<div class='query_center_n query_center_input'><p>自定义条件：</p><div  style=';box-sizing:border-box;width:500px;float: left'>
+	<div id='query_addbox'><input type="text" style='display: block;'/></div><button id='query_add'>添加</button>
+	<p id='add_stop' style='float: left;font-size: 14px;color:red;display: none'>最多增加三个自定义条件</p>
+	</div>
+	<div class="clear"></div>
+	</div>
+	<div class='query_center_n'><p> &nbsp;</p><div class="query_n4">
+	第&nbsp;&nbsp;<input style='width:50px'>&nbsp;&nbsp;页，每页&nbsp;&nbsp;<input style='width:50px' type="" name="">&nbsp;&nbsp;条&nbsp;&nbsp;&nbsp;&nbsp;
+	<button id='query_cha'>查&nbsp;&nbsp;询</button></div>
+	<div class="clear"></div>
+	</div>
+	<div class='query_center_n'><p>结果：</p><div class='query_n5'>
+
+	</div>
+	<div class="clear"></div>
+	</div>
+</div>
+</div>
+</div>
+<script type="text/javascript" src='js/index.js'></script>
+<script type="text/javascript" src='js/laydate.dev.js'></script>
+<script type="text/javascript">
+
+//时间控件
+laydate({
+
+		elem : '#query_statedate'
+
+	});
+laydate({
+
+		elem : '#query_enddate'
+
+	});
+//初始化导航
+	var nav_list=document.getElementById('nav_list')
+var nav_li=nav_list.getElementsByTagName('li')
+nav_li[2].style.background='#3adbf3'
+//初始化标签
+function tablefn(){
+	var tablen=['微信','支付宝']
+for(var i=0;i<tablen.length;i++){
+	var divs=document.createElement('div')
+	divs.className='label_ns'
+	divs.innerHTML=tablen[i]
+	query_n1_box.append(divs)
+}
+}
+tablefn()
+//增加自定义条件
+var query_add=document.getElementById('query_add')
+var query_addbox=document.getElementById('query_addbox')
+var num=1
+query_add.addEventListener('click',fn)
+function fn(){
+	if(num<3){
+	num++
+	var input=document.createElement('input')
+	query_addbox.append(input)
+	add_stop.style.display='none'
+	}else{
+		add_stop.style.display='block'
+	}
+	
+}
+window.document.onclick=function(e){
+  var ev=e||event
+  if(ev.target!=navs){
+    switchs=true
+    nav_list.style.height='0'
+    navs.style.background=''
+  }
+  if(ev.target!=query_add){
+    add_stop.style.display='none'
+  }
+  if(ev.target.className=='label_ns'){
+		var labels=document.getElementsByClassName('label_ns')
+		for(var i=0;i<labels.length;i++){
+			labels[i].style.background='#f5f5f5'
+		}
+		ev.target.style.background='#25cfe8'
+	}
+  
+}
+</script>
+</body>
+</html>

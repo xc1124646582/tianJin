@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="resources/style/css.css">
+	<style type="text/css">
+		.positions{
+			margin: 0 auto;
+			width: 1440px;
+	background-color: white;
+			box-sizing: border-box;
+min-height:922px;}
+	</style>
+</head>
+<body>
+<div class='main'>
+<div class="header">
+<div class="head">
+<span>天津日志可视化</span>
+  <img id='navs' src="resources/images/nav.png" />
+  <div class="nav_list" id='nav_list'>
+    <ul>
+      <li><a href="index.html">数据报表</a></li>
+      <li><a href="label.html">数据标签</a></li>
+      <li><a href="query.html">数据查询</a></li>
+      <li id='quitUser'><a href="login.html">退出登录</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+<div class=" positions" ondragstart="return false" style='padding-top: 17px'>
+	<div class="label_con">
+		<div class="label_n1">
+		<p><button class="label_button" id='label_n1_btn'>新建</button></p>
+			<p class="label_n1_tit">标签：</p>
+			<div class="label_n1_box" id='label_n1_box'>
+				<div class="label_ns" value='微信'>微信<span class="label_span">x</span></div>
+				<div class="label_ns" value='新浪'>新浪<span class="label_span">x</span></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="label_n2">
+		<p class="label_n1_tit">标签定义：</p>
+		<div class="label_n2_box">
+		<p><span id='label_names'>  </span> <button class="label_button" id='label_n2_btn'>增加</button>&nbsp;&nbsp;<span id='lavel_addspan2'>请选择标签</span></p>
+				<table border="0" cellspacing="0" cellpadding="0">
+						<thead>
+						<tr>
+							<td width="156" style="padding-left: 13px">字段</td>
+							<td width="223">正则</td>
+							<td width="224">分组</td>
+							<td width="126">操作</td>
+						</tr>
+						</thead>
+						<tbody id='label_n2_table'>		
+<!-- 						<tr>
+							<td><select value='URL'>
+								<option value='userAccount' title="用户账号 字符型">userAccount</option>
+								<option title="协议类型 十六进制整形表示">protocolType</option>
+								<option title="源IP IP地址采用点分十进制表示">sourceIP</option>
+								<option title="目的IP IP地址采用点分十进制表示">destinationIP</option>
+								<option title="Bytes 源端口 十六进制整形表示">sourcePort</option>
+								<option title="2 Bytes 目的端口 十六进制整形表示">destinationPort</option>
+								<option title="域名 采用BASE64编码">domainName</option>
+								<option value='URL' title="URL 采用BASE64编码，建议支持的最大长度不小于256byte">URL</option>
+								<option title=" 链接源信息 采用BASE64编码，建议支持的最大长度不小于256byte">referer</option>
+								<option title="UserAgent信息 采用BASE64编码，建议支持的最大长度不小于256byte">userAgent</option>
+								<option title="Cookie信息 采用BASE64编码，建议支持的最大长度不小于768byte">cookie</option>
+								<option title="4 Bytes 访问时间 采用UTC格式">accessTime</option>
+							</select></td>
+							<td contenteditable='true'></td>
+							<td contenteditable='true'></td>
+							<td><button>保存</button><button>删除</button></td>
+						</tr> -->
+						</tbody>	
+				</table>
+			</div>
+			<div class="clear"></div>
+		</div>
+<div class='label_n2_top'>
+	<div class="label_n2">
+		<p class="label_n1_tit">数据匹配：</p>
+		<div class="label_n2_box">
+		<p><button class="label_button" id='label_n3_btn'>新建</button></p>
+				<table border="0" cellspacing="0" cellpadding="0">
+						<thead>
+						<tr>
+							<td width="156" style="padding-left: 13px">标签</td>
+							<td width="223">规则</td>
+							<td width="224" style="padding-left: 13px">状态</td>
+							<td width="126">操作</td>
+						</tr>
+						</thead>
+						<tbody id='label_n3_table'>	
+						<tr>
+							<td><select value='username'>
+								<option>username</option>
+							</select></td>
+							<td contenteditable='true'>name1/name2</td>
+							<td><select value='username'>
+								<option>启用</option>
+								<option>停用</option>
+							</select></td>
+							<td><button>保存</button><button>删除</button></td>
+						</tr>
+						</tbody>	
+				</table>
+			</div>
+			<div class="clear"></div>
+		</div>
+</div>
+	</div>
+</div>
+<!-- 添加标签弹窗 -->
+<div class="label_n1_return" id='label_n1_return'>
+	<div class="label_n1_rans">
+		<p style="text-align: center;font-size: 19px">添加标签</p>
+		<p><span>标签名称：</span><input type="text" id='label_n1_value'/></p>
+		<p style="color: red;margin-bottom:8px;" id='lable_add_stop'></p>
+		<p><button id='label_n1_clearbtn'>取消</button><button id='label_n1_addbtn'>确定</button></p>
+	</div>
+</div>
+</div>
+<script type="text/javascript" src='resources/js/index.js'></script>
+<script type="text/javascript" src='resources/js/AjaxUtils.js'></script>
+<script type="text/javascript">
+	var nav_list=document.getElementById('nav_list')
+var nav_li=nav_list.getElementsByTagName('li')
+nav_li[1].style.background='#3adbf3'
+//获取所有已有标签
+var url=ajaxUrl+'/tags';
+var data={}
+var label_main=[]
+Ajaxs.GET(url,data,label_callback1)
+function label_callback1(response){
+	var label_n1_box=document.getElementById('label_n1_box')
+        label_n1_box.innerHTML=''
+     var json=response
+     if(json.code==0){
+            	for(var i=0;i<json.result.length;i++){
+            		var divs=document.createElement('div')
+	                var span_n=document.createElement('span')
+	                divs.className='label_ns'
+	                divs.setAttribute('value',json.result[i].name)
+	                divs.setAttribute('id',json.result[i].id)
+	                span_n.innerHTML='x'
+	                span_n.className='label_span'
+	                divs.append(span_n)
+	                divs.innerHTML+=json.result[i].name
+	                label_n1_box.append(divs)
+            	}
+            	label_main=json.result
+
+
+//初始化数据匹配标签
+var url=ajaxUrl+'/log/regs';
+var data=[]
+Ajaxs.GET(url,data,callback_setup3)
+function callback_setup3(response){
+	var json=response.result
+	var aa=''
+	label_n3_table.innerHTML=''
+	for(var i=0;i<json.length;i++){
+		var regStr=json[i].regStr==null?'':json[i].regStr
+		aa+='<tr id='+json[i].id+'><td><select class=label_select3 onchange=selectchange_n3() value='+json[i].tagId+'>'+label_n3_main(json[i].tagId)+'</select></td><td contenteditable=true onpaste=tdchange("' + json[i].regStr + '") onkeyup=tdchange("' + json[i].regStr + '")>'+regStr+'</td><td><select onchange=selectchange_n3() value="'+json[i].status+'">'+label_n3_status(json[i].status)+'</select></td><td><button onclick=setup_n3("' + json[i].id + '") disabled=disabled>保存</button><button onclick=clear_n3("' + json[i].id + '")>删除</button></td></tr>'
+	}
+	label_n3_table.innerHTML+=aa
+}
+            }
+}
+
+
+//添加标签弹窗
+var label_n1_btn=document.getElementById('label_n1_btn');
+var label_n1_return=document.getElementById('label_n1_return');
+var label_n1_clearbtn=document.getElementById('label_n1_clearbtn');
+var label_n1_addbtn=document.getElementById('label_n1_addbtn');
+
+function label_block(){
+	label_n1_return.style.display='block'
+}
+function label_clear(){
+	label_n1_return.style.display='none'
+	lable_add_stop.innerHTML=''
+}
+label_n1_btn.onclick=function(){
+	label_block()
+}
+//取消
+label_n1_clearbtn.onclick=function(){
+	label_clear()
+	label_n1_value.value=''
+}
+//确定
+label_n1_addbtn.onclick=function(){
+	var value=label_n1_value.value
+	if(value.length>16){
+		lable_add_stop.innerHTML='最多可输入16个字符'
+	}else if(value==''){
+		lable_add_stop.innerHTML='标签不能为空'
+	}else{
+		lable_add_stop.innerHTML=''
+		//添加标签
+		var url=ajaxUrl+'/tag'
+		var data={'name':value}
+		Ajaxs.POST(url,data,label_setup1)
+	function label_setup1(response){
+	var json=response
+	if(json.code==0){
+    var divs=document.createElement('div')
+	var span_n=document.createElement('span')
+	divs.className='label_ns'
+	divs.setAttribute('value',json.result.name)
+	divs.setAttribute('id',json.result.id)
+	span_n.innerHTML='x'
+	span_n.className='label_span'
+	var label_n1_box=document.getElementById('label_n1_box')
+	divs.append(span_n)
+	divs.innerHTML+=json.result.name
+	label_n1_box.append(divs)
+	label_clear()
+	label_n1_value.value=''
+	//label_main.push(json.result)
+	// var label_select3=document.getElementsByClassName('label_select3')
+	// var option='<option value='+json.result.id+'>'+json.result.name+'</option>'
+	// for(var i=0;i<label_select3.length;i++){
+	// 	label_select3[i].innerHTML+=option
+	// }
+
+}
+		}
+	
+	}
+}
+
+//选取标签
+window.document.onclick=function(e){
+	var ev=e||event
+	if(ev.target!=navs){
+    switchs=true
+    nav_list.style.height='0'
+    navs.style.background=''
+  }
+  //选择标签
+	if(ev.target.className=='label_ns'){
+		var id=ev.target.getAttribute('id')
+		var url=ajaxUrl+'/tags/'+id+'/regs';
+		var data={'id':id}
+		Ajaxs.GET(url,data,label_click1)
+		function label_click1(response){
+		var label_n2_table=document.getElementById('label_n2_table')
+            label_n2_table.setAttribute('value',id)
+            console.log(id)
+        var json=response
+        var labels=document.getElementsByClassName('label_ns')
+		for(var i=0;i<labels.length;i++){
+			labels[i].style.background='#f5f5f5'
+		}
+		ev.target.style.background='#25cfe8'
+		var values=ev.target.getAttribute('value')
+		label_names.innerHTML=values
+		label_n2_table.innerHTML=''
+		var aa=''
+		var obj=json.result
+		console.log(obj)
+		for(var i=0;i<obj.length;i++){
+			// aa+=`<tr value=${obj[i].tagId} id=${obj[i].id}><td><select onchange='selectchange()' value=${obj[i].regStr}>
+			// 	${options(obj[i].regStr)}
+			// 	</select></td><td contenteditable='true' onkeyup='tdchange()'>${obj[i].field}</td><td contenteditable='true' onkeyup='tdchange(${obj[i].group})'>${obj[i].group}</td><td><button onclick='setup_n2()' disabled='disabled'>保存</button><button onclick='clear_n2()'>删除</button></td></tr>`
+
+var fields=obj[i].field==null?'':obj[i].field
+var groups=obj[i].group==null?'':obj[i].group
+			aa+='<tr value='+obj[i].tagId+' id='+obj[i].id+'><td><select onchange=selectchange() value='+obj[i].regStr+'>'+
+				options(obj[i].regStr)
+				+'</select></td><td contenteditable=true onpaste=tdchange("' + obj[i].field + '") onkeyup=tdchange("' + obj[i].field + '")>'+fields+'</td><td contenteditable=true onpaste=tdchange("'+obj[i].group+'") onkeyup=tdchange("'+obj[i].group+'")>'+groups+'</td><td><button onclick=setup_n2() disabled=disabled>保存</button><button onclick=clear_n2()>删除</button></td></tr>'
+		}
+		label_n2_table.innerHTML=aa
+		lavel_addspan2.style.display='none'
+		}
+
+	}
+	//删除标签
+	if(ev.target.className=='label_span'){
+
+    var par=ev.target.parentNode
+    var tagId=par.getAttribute('id')
+    var url=ajaxUrl+'/tags/'+tagId
+    var data={'tagId':tagId}
+    Ajaxs.DELETE(url,data,callback_delet1)
+    function callback_delet1(response){
+    	var aa=label_n2_table.getAttribute('value')
+    	if(tagId==aa){
+    		label_n2_table.removeAttribute('value')
+    		label_n2_table.innerHTML=''
+    		label_names.innerHTML=''
+    		par.remove()
+    	}else{
+    		par.remove()
+    	}
+
+    	// var label_select3=document.getElementsByClassName('label_select3')
+    	// for(var i=0;i<label_select3.length;i++){
+    	// 	 var childs=label_select3[i].children
+    	// 	 for(var j=0;j<childs.length;j++){
+    	// 	 	if(childs[j].value==tagId){
+    	// 	 		// var selected=childs[j].getAttribute('selected')
+    	// 	 		// console.log(selected)
+    	// 	 		// if(selected=='selected'){
+    	// 	 		// 	console.log(childs[j].parentNode.parentNode.parentNode)
+    	// 	 		// 	childs[j].parentNode.parentNode.parentNode.remove()
+    	// 	 		// }
+    	// 	 		childs[j].remove()
+    	// 	 	}
+    	// 	 }
+    	// }
+    	// var arrns=[]
+    	// for(var j=0;j<label_main.length;j++){
+    	// 	if(label_main[j].id!=tagId){
+    	// 		arrns.push(label_main[j])
+    	// 	}
+    	// }
+    	// label_main=arrns
+    	// console.log(label_main)
+    }
+  }
+}
+//检测标签规则修改
+function tdchange(main,e){
+
+	 var ev=e||event
+	 if(ev.target.innerHTML!=main){
+	var btn=ev.target.parentNode.lastChild.firstChild
+	btn.removeAttribute('disabled')
+	 }else{
+	var btn=ev.target.parentNode.lastChild.firstChild
+	btn.setAttribute('disabled','true')
+	 }
+}
+function selectchange(e){
+	var ev=e||event
+	var btn=ev.target.parentNode.parentNode.lastChild.firstChild
+	btn.removeAttribute('disabled')
+}
+//删除标签规则
+function clear_n2(e){
+	var ev=e||event
+	var par=ev.target.parentNode.parentNode
+	var tagId=par.getAttribute('value')
+	var regId=par.getAttribute('id')
+	
+	var url=ajaxUrl+'/tags/'+tagId+'/regs/'+regId
+	var data={'tagId':tagId,'regId':regId}
+	Ajaxs.DELETE(url,data,fase)
+	function fase(back){
+		par.remove()
+	}
+}
+//保存修改标签定义
+function setup_n2(e){
+	var ev=e||event
+	var par=ev.target.parentNode.parentNode
+	if(par.getAttribute('id')){
+		var selec=par.firstChild.firstChild
+		var n1=par.firstChild.nextSibling
+		var n2=par.firstChild.nextSibling.nextSibling
+		// var label_n1_box=document.getElementById('label_n1_box')
+		// var id=label_n1_box.getAttribute('value')
+		//var n2=ev.target.parentNode.previousSbiling.previousSbiling
+		var tagId=par.getAttribute('value')
+		var regId=par.getAttribute('id')
+		var url=ajaxUrl+'/tags/'+tagId+'/regs/'+regId;
+		data={
+        tagId:tagId,
+        regId:regId,
+        regStr:selec.value,
+        field:n1.innerHTML,
+        group:n2.innerHTML
+        }
+		Ajaxs.POST(url,data,callback_setup2)
+		function callback_setup2(response){
+			ev.target.setAttribute('disabled','true')
+		}
+
+
+	}
+}
+
+//渲染标签定义字段
+function options(select){
+	var obj=[{'name':'用户账号字符型','value':'userAccount'},
+	{'name':'协议类型,十六进制整形表示','value':'protocolType'},
+	{'name':'源IP,IP地址采用点分十进制表示','value':'sourceIP'},
+	{'name':'目的IP,IP地址采用点分十进制表示','value':'destinationIP'},
+	{'name':'Bytes,源端口,十六进制整形表示','value':'sourcePort'},
+	{'name':'2Bytes,目的端口,十六进制整形表示','value':'destinationPort'},
+	{'name':'域名,采用BASE64编码','value':'domainName'},
+	{'name':'URL,采用BASE64编码，建议支持的最大长度不小于256byte','value':'URL'},
+	{'name':'链接源信息,采用BASE64编码，建议支持的最大长度不小于256byte','value':'referer'},
+	{'name':'UserAgent信息,采用BASE64编码，建议支持的最大长度不小于256byte','value':'userAgent'},
+	{'name':'Cookie信息,采用BASE64编码，建议支持的最大长度不小于768byte','value':'cookie'},
+	{'name':'4Bytes,访问时间,采用UTC格式','value':'accessTime'}]
+	var str=''
+	for(var i=0;i<obj.length;i++){
+		if(select&&select==obj[i].value){
+			str+=`<option title=${obj[i].name} value=${obj[i].value} selected = "selected">${obj[i].value}</option>`
+		}else{
+			str+=`<option title=${obj[i].name} value=${obj[i].value}>${obj[i].value}</option>`
+		}
+	}
+	// var str=`<option title="用户账号 字符型">userAccount</option>
+	// 							<option title="协议类型 十六进制整形表示">protocolType</option>
+	// 							<option title="源IP IP地址采用点分十进制表示">sourceIP</option>
+	// 							<option title="目的IP IP地址采用点分十进制表示">destinationIP</option>
+	// 							<option title="Bytes 源端口 十六进制整形表示">sourcePort</option>
+	// 							<option title="2 Bytes 目的端口 十六进制整形表示">destinationPort</option>
+	// 							<option title="域名 采用BASE64编码">domainName</option>
+	// 							<option title="URL 采用BASE64编码，建议支持的最大长度不小于256byte">URL</option>
+	// 							<option title=" 链接源信息 采用BASE64编码，建议支持的最大长度不小于256byte">referer</option>
+	// 							<option title="UserAgent信息 采用BASE64编码，建议支持的最大长度不小于256byte">userAgent</option>
+	// 							<option title="Cookie信息 采用BASE64编码，建议支持的最大长度不小于768byte">cookie</option>
+	// 							<option title="4 Bytes 访问时间 采用UTC格式">accessTime</option>`
+return str
+}
+//点击添加标签规则
+var label_n2_btn=document.getElementById('label_n2_btn');
+label_n2_btn.onclick=function(){
+var label_n2_table=document.getElementById('label_n2_table')
+var id=label_n2_table.getAttribute('value')
+console.log(id)
+if(id){
+var url=ajaxUrl+'/tags/'+id+'/reg';
+var data={'id':id};
+Ajaxs.POST(url,data,callback_add2)
+function callback_add2(response){
+	var json=response
+	if(json.code==0){
+            	var aa='<tr value='+json.result.tagId+' id='+json.result.id+'><td><select onchange=selectchange() value='+json.result.regStr+'>'+
+				options(json.result.regStr)
+				+'</select></td><td contenteditable=true onpaste=tdchange("' + json.result.field + '") onkeyup=tdchange("' + json.result.field + '")></td><td contenteditable=true onpaste=tdchange("' + json.result.group + '") onkeyup=tdchange("'+json.result.group+'")></td><td><button onclick=setup_n2()>保存</button><button onclick=clear_n2()>删除</button></td></tr>'
+	label_n2_table.innerHTML+=aa
+            }
+}
+}else{
+	lavel_addspan2.style.display='inline-block'
+}
+}
+//数据匹配 数据初始化
+function label_n3_main(select){
+	var str=''
+	for(var i=0;i<label_main.length;i++){
+			if(select&&select==label_main[i].id){
+			str+=`<option value=${label_main[i].id} selected = "selected">${label_main[i].name}</option>`
+		}else{
+			str+=`<option value=${label_main[i].id}>${label_main[i].name}</option>`
+		}
+	}
+	return str
+}
+//数据匹配 状态初始化
+function label_n3_status(select){
+	var str=''
+	var arr=['启用','停用']
+	for(var i=0;i<arr.length;i++){
+			if(select&&select==arr[i]){
+			str+=`<option value=${arr[i]} selected = "selected">${arr[i]}</option>`
+		}else{
+			str+=`<option value=${arr[i]}>${arr[i]}</option>`
+		}
+	}
+	return str
+}
+//检测数据匹配标签被修改
+function selectchange_n3(e){
+	var ev=e||event;
+	var childs=ev.target.children
+	for(var i=0;i<childs.length;i++){
+		childs[i].removeAttribute('selected');
+		value=childs[i].getAttribute('value')
+		if(value==ev.target.value){
+			childs[i].setAttribute('selected','selected')
+		}
+	}
+	var btn=ev.target.parentNode.parentNode.lastChild.firstChild
+	btn.removeAttribute('disabled')
+	console.log(ev.target.value)
+}
+//新建数据匹配
+var label_n3_btn=document.getElementById('label_n3_btn');
+var label_n3_table=document.getElementById('label_n3_table');
+label_n3_btn.onclick=function(){
+	var url=ajaxUrl+'/log/reg'
+	var data=[]
+	Ajaxs.POST(url,data,callback_add3)
+	function callback_add3(response){
+		var json=response.result
+		var aa='<tr id='+json.id+'><td><select class=label_select3 onchange=selectchange_n3() value='+json.tagId+'><option></option>'+label_n3_main(json.tagId)+'</select></td><td contenteditable=true onpaste=tdchange("' + json.regStr + '") onkeyup=tdchange("' + json.regStr + '")></td><td><select onchange=selectchange_n3() value="'+json.status+'"><option></option>'+label_n3_status(json.status)+'</select></td><td><button onclick=setup_n3("' + json.id + '")>保存</button><button onclick=clear_n3("' + json.id + '")>删除</button></td></tr>'
+	label_n3_table.innerHTML+=aa
+	}
+}
+function clear_n3(id,e){
+var ev=e||event
+var par=ev.target.parentNode.parentNode
+var url=ajaxUrl+'/log/reg/'+id;
+var data={'id':id};
+Ajaxs.DELETE(url,data,callback_setup3)
+function callback_setup3(response){
+	par.remove()
+}
+}
+function setup_n3(id,e){
+	var ev=e||event
+	var par=ev.target.parentNode.parentNode
+	var selec=par.firstChild.firstChild
+	var n1=par.firstChild.nextSibling
+	var n2=par.firstChild.nextSibling.nextSibling.firstChild
+	var url=ajaxUrl+'/log/reg/'+id;
+	var data={'id':id,
+	'tagId':selec.value,
+	'regStr':n1.innerHTML,
+	'status':n2.value
+};
+    Ajaxs.POST(url,data,callback_getup3)
+    function callback_getup3(response){
+    	ev.target.setAttribute('disabled','true')
+    }
+}
+
+
+</script>
+</body>
+</html>
